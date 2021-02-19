@@ -25,17 +25,17 @@ const NavBar = () =>{
 		history.push("/login");
 	}
 
-	return(	
-		<Navbar bg='light'> 
+	return (
+		<Navbar bg='light'>
     		<Navbar.Brand>ThpBook</Navbar.Brand>
-    		<Link to="/">Home</Link>
-				{!CurrentUser && <Link to="/login">Login</Link>}
-				{!CurrentUser	&& <Link to="/register">Register</Link>}
+    		<Link to="/">Accueil</Link>
+				{!CurrentUser && <Link to="/login">Connexion</Link>}
+				{!CurrentUser	&& <Link to="/register">Inscription</Link>}
 				<Link to="/profil/me">Profil</Link>
-				<Link to="/posts">Posts</Link>
-				
+				<Link to="/posts">Publications</Link>
+
 				<Nav className="mr-auto"></Nav>
-				{CurrentUser && <Button onClick={Deconnexion}> Déconnexion </Button>}		
+				{CurrentUser && <Button onClick={Deconnexion}> Déconnexion </Button>}
   	</Navbar>
 	)
 };

@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom
 import './index.css';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container} from 'react-bootstrap';
 
 import NavBar from 'components/Navbar'
 import { Provider, useSelector } from 'react-redux';
@@ -16,15 +17,11 @@ import Login from 'pages/Login';
 import Profil from 'pages/Profil';
 import Posts from 'pages/Posts';
 
-//import Cookies from 'js-cookie';
-
 const App = () => {
 
   const getCurrentUser = (state) => state.userInfo;
   const UserId = useSelector(getCurrentUser);
   const checkAuth = () => {
-    //check state global
-    //const cookie = Cookies.get('jwt');
     if(UserId !== null){
       return true;
     }else{
@@ -36,35 +33,36 @@ const App = () => {
     <Route {...rest} render={props => (
       checkAuth() ? (
         <Component {...props} />
-      ) : (
+        ) : (
         <Redirect to={{ pathname: '/login' }} />
-      )
-    )} />
-  );
+        )
+        )} />
+    );
 
-	return(
+  return (
     <Router>
-    <div>
-        <header>
-          <NavBar />
-        </header>
-        <main>
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Container>
             <Route path="/login" exact>
-            	<Login />
-          	</Route>
-          	<Route path="/register" exact>
-            	<Register />
-          	</Route>
+              <Login />
+            </Route>
+            <Route path="/register" exact>
+              <Register />
+            </Route>
             <PrivateRoute path="/Profil/:profilSlug" component={Profil} />
             <PrivateRoute path="/Posts" component={Posts} />
-          </Switch>
-        </main>
-    </div>
+          </Container>
+        </Switch>
+      </main>
     </Router>
-);}
+  );
+};
 
 ReactDOM.render(<Provider store={reducer}> <App /> </Provider> , document.getElementById('root'));
